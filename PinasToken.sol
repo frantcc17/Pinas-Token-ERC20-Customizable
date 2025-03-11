@@ -1,4 +1,4 @@
-Licencia
+//Licencia
 //SPDX-License-Identifier: LGPL-3.0-only
 pragma solidity 0.8.24;
 
@@ -35,16 +35,15 @@ _updateTokenPrice();
     
 //External Functions
 // Mint Function
-function mintTokens (address to, uint256 amount_) public onlyOwner {
-    _mint(address(this), amount_);
-      _mint(to, amount_);
-        _updateTokenPrice();
-        
+function mintTokens(address to, uint256 amount_) public onlyOwner {
+    require(totalSupply() + amount_ <= maxSupply, "Exceeds max supply");
+    _mint(to, amount_); // Mintea SOLO al destinatario
+    _updateTokenPrice();
 }
 // Burn Function
-function burnTokens (address to, uint256 amount_) public onlyOwner {
-    _mint(address(this), amount_);
-      _mint(to, amount_);
+function burnTokens ( uint256 amount_) public onlyOwner {
+    _burn(address(this), amount_);
+     
         _updateTokenPrice();
         }
 // Buy function
